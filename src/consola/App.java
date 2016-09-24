@@ -31,7 +31,23 @@ public class App {
 		String sql = "SELECT id, nombre FROM cliente"; 
 		ResultSet resultados = comando.executeQuery(sql); 
 		
+//		procesamos los datos y los pasamos a objetos
+		while(resultados.next()){ //Avanza a la siguiente fila si hay devuelve true
+//			Accedemos a las filas
+			int id = resultados.getInt("id"); 
+			String nombre = resultados.getString("nombre"); 
+			
+			Cliente c = new Cliente(id, nombre); 
+			clientes.add(c); 
+		}
+		
+//		cierro ResultSet
+		resultados.close(); 
+		
 //		Cierrao conexión a BBDD
 		conexion.close(); 
+		
+//		Muestro por pantalla el listado de clientes
+		System.out.println(clientes);
 	}
 }//fin class consola.App
